@@ -11,28 +11,19 @@ public class TreeDiameter {
   }
 
   public int diameterOfBinaryTree(TreeNode root) {
-    int[] metrics = getMetrics(root);
-    return metrics[2] - 1;
+    int[] maxDia = new int[1];
+    getHeight(root, maxDia);
+    return maxDia[0];
   }
 
-  public int[] getMetrics(TreeNode node) {
+  public int getHeight(TreeNode node, int[] maxDia) {
     if (node == null)
-      return new int[]{0,0,0};
-    int[] lMetrics = getMetrics(node.left);
-    int[] rMetrics = getMetrics(node.right);
+      return 0;
+    int lHeight = getHeight(node.left, maxDia);
+    int rHeight = getHeight(node.right, maxDia);
 
-    int llHeight = lMetrics[0];
-    int lrHeight = lMetrics[1];
-    int lDia = lMetrics[2];
-
-    int rlHeight = rMetrics[0];
-    int rrHeight = rMetrics[1];
-    int rDia = rMetrics[2];
-
-    int lHeight = Math.max(llHeight, lrHeight) + (lDia > 0 ? 1 : 0);
-    int rHeight = Math.max(rlHeight, rrHeight) + (rDia > 0 ? 1 : 0);
-    int dia = Math.max(Math.max(lDia, rDia), lHeight + rHeight + 1);
-    return new int[] {lHeight, rHeight, dia};
+    maxDia[0] = Math.max(maxDia[0], lHeight + rHeight);
+    return Math.max(lHeight, rHeight) + 1;
   }
 
 }
