@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,26 +25,21 @@ public class ThreeSum {
 		// So, sort or map ? Map is going to be n2 in the worst case when the array is full of the same number.
 		if (nums.length < 3)
 			return Collections.emptyList();
-		
+
 		Arrays.sort(nums);
 		List<List<Integer>> result = new ArrayList<>();
 		Map<Integer, Set<Integer>> firstNumMap = new HashMap<>();
 		for (int i = 0; i < nums.length - 2; i++) {
-			if (firstNumMap.containsKey(nums[i])) {
+			if (i > 0 && nums[i] == nums[i-1]) {
 				continue;
 			}
-			Set<Integer> secondNumSet = new HashSet<>();
-			firstNumMap.put(nums[i], secondNumSet);
 			int start = i + 1, end = nums.length - 1;
 			while (start < end) {
-				if (secondNumSet.contains(nums[start])) {
-					start++;
-					continue;
-				}
 				int twosum = nums[start] + nums[end];
 				if (twosum == -nums[i]) {
 					result.add(Arrays.asList(nums[i], nums[start], nums[end]));
-					secondNumSet.add(nums[start]);
+					while (start < nums.length - 1 && nums[start] == nums[start + 1]) start++;
+					while (end > 0 && nums[end] == nums[end - 1]) end--;
 					start++;
 					end--;
 				} else if (twosum < -nums[i]) {
