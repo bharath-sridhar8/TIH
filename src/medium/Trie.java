@@ -36,6 +36,7 @@ public class Trie {
 	private void insert(String word, int idx, TrieNode node) {
 
 		char c = word.charAt(idx);
+//		System.out.println(c + " : " + (c - 97));
 		// init specific child.
 		if (node.children[c - 97] == null) {
 			node.children[c - 97] = new TrieNode();
