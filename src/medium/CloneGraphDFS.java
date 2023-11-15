@@ -24,10 +24,10 @@ class Node {
 	}
 }
 
-public class CloneGraph {
+public class CloneGraphDFS {
 
 	public static void main(String[] args) {
-		CloneGraph cloneGraph = new CloneGraph();
+		CloneGraphDFS cloneGraph = new CloneGraphDFS();
 		Node one = new Node(1);
 		Node two = new Node(2);
 		Node three = new Node(3);
